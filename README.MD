@@ -1,13 +1,10 @@
 # nginx-echo: nginx 1.25.5 rebuilt from source, with two CVE remediations
 
-This repo builds an nginx 1.25.5 `.deb` from upstream source inside `debian:bookworm-slim`, packages a patched `libpcre2-8-0` next to it, and installs both into a final image.
-
-Status legend: **verified** = I ran it or read it in the scan output; **pending** = not run yet, command given.
-
+This repo builds a backported nginx 1.25.5 `.deb` from upstream source inside `debian:bookworm-slim`, packages a patched `libpcre2-8-0` next to it, and installs both into a final image.
 
 ## CVE's I chose
 
-I took my time to search for meaningfull CVE that has real risk in them. Took some time because a lot of the CVE's were either not fixed or not really related to version 1.25 according to the official websites.
+I took my time to search for meaningfull CVE's that has real risk in them. Took some time because a lot of the CVE's were either not fixed or not really related to version 1.25 according to the official websites.
 
 1. **CVE-2026-95101-nginx** - Medium severity
 2. **CVE-2026-86145-libpcre2** - High severity (NOTE: this CVE is not effecting nginx because nginx does not use the functions specified)
@@ -18,7 +15,8 @@ I took my time to search for meaningfull CVE that has real risk in them. Took so
 Requirements: Docker, `make`, and about 2 GB of free disk for the builder.
 
 ```sh
-make all          # builder image -> pcre2 .deb -> nginx .deb -> final image
+make deb          # produces the .deb packages
+make all          # buildes the final dropin image
 make test         # runs test/test_compare.py against nginx:1.25-bookworm
 ```
 

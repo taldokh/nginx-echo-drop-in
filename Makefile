@@ -16,7 +16,7 @@ OUT_DIR      := $(CURDIR)/out
 
 .PHONY: all deb build-pcre2 final-image image test clean
 
-all: deb
+all: final-image
 
 image:
 	docker build -f build/Dockerfile.Builder -t $(BUILDER_TAG) .
